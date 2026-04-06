@@ -53,6 +53,7 @@ export type Report = {
 };
 
 export const CATEGORIES = [
+  "Driving slow in the left lane",
   "Tailgating",
   "Aggressive driving",
   "Unsafe lane change",
