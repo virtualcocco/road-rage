@@ -7,6 +7,7 @@ import { ShieldAlert, CheckCircle, Loader2, MapPin, Camera, Clock } from "lucide
 export default function ReportPage() {
   const [form, setForm] = useState({
     plate_text: "",
+    plate_state: "",
     category: "",
     description: "",
     city: "",
@@ -182,6 +183,7 @@ export default function ReportPage() {
         state: form.state,
         time_of_day: form.time_of_day,
         plate_text: form.plate_text || null,
+        plate_state: form.plate_state || null,
         media_url,
         reported_at: timestamp || new Date().toISOString(),
         status: "pending",
@@ -214,6 +216,7 @@ export default function ReportPage() {
             setTimestamp(new Date().toISOString());
             setForm({
               plate_text: "",
+              plate_state: "",
               category: "",
               description: "",
               city: "",
@@ -241,22 +244,42 @@ export default function ReportPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* 1. LICENSE PLATE — FIRST */}
+        {/* 1. LICENSE PLATE + PLATE STATE — FIRST */}
         <div>
           <label className="block text-sm font-semibold text-zinc-300 mb-2">
             Sucky Driver&apos;s License Plate (optional, never published)
           </label>
-          <input
-            type="text"
-            value={form.plate_text}
-            onChange={(e) =>
-              setForm({ ...form, plate_text: e.target.value.toUpperCase() })
-            }
-            placeholder="ABC 1234"
-            className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-red-500 transition-colors text-lg tracking-wider font-mono"
-          />
+          <div className="grid grid-cols-3 gap-3">
+            <div className="col-span-2">
+              <input
+                type="text"
+                value={form.plate_text}
+                onChange={(e) =>
+                  setForm({ ...form, plate_text: e.target.value.toUpperCase() })
+                }
+                placeholder="ABC 1234"
+                className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-red-500 transition-colors text-lg tracking-wider font-mono"
+              />
+            </div>
+            <div>
+              <select
+                value={form.plate_state}
+                onChange={(e) => setForm({ ...form, plate_state: e.target.value })}
+                className="w-full px-3 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-100 focus:outline-none focus:border-red-500 transition-colors"
+              >
+                <option value="">State</option>
+                {STATES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
           <p className="text-xs text-zinc-600 mt-1">
-            Used only for internal pattern matching. Never displayed publicly.
+            {form.plate_state === "OH"
+              ? "Ohio? Yeah, that tracks. 😂"
+              : "Let me guess... Ohio? 🤔"}
           </p>
         </div>
 
