@@ -148,7 +148,7 @@ export default function ReportPage() {
     setError("");
 
     if (!form.category || !form.description) {
-      setError("Please select what happened and describe the incident.");
+      setError("Please select why they suck and tell us about it.");
       return;
     }
 
@@ -201,10 +201,10 @@ export default function ReportPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-24 text-center">
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-        <h1 className="text-3xl font-bold mb-4">Report Submitted</h1>
+        <h1 className="text-3xl font-bold mb-4">Sucky Driver Reported!</h1>
         <p className="text-zinc-400 mb-8">
-          Your anonymous report has been filed. It will be reviewed by our
-          moderation team before contributing to public trends.
+          Your anonymous report has been filed. Our team will review it
+          before it hits the public shame board.
         </p>
         <button
           onClick={() => {
@@ -224,7 +224,7 @@ export default function ReportPage() {
           }}
           className="px-6 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold transition-colors"
         >
-          File Another Report
+          Report Another Sucky Driver
         </button>
       </div>
     );
@@ -234,9 +234,9 @@ export default function ReportPage() {
     <div className="max-w-2xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
         <ShieldAlert className="w-10 h-10 text-red-500 mx-auto mb-4" />
-        <h1 className="text-3xl font-bold mb-2">Report a Driver</h1>
+        <h1 className="text-3xl font-bold mb-2">Report a Sucky Driver</h1>
         <p className="text-zinc-400">
-          All reports are anonymous. No identifying info is ever published.
+          Spotted someone who sucks at driving? Snitch anonymously. No identifying info is ever published.
         </p>
       </div>
 
@@ -244,7 +244,7 @@ export default function ReportPage() {
         {/* 1. LICENSE PLATE — FIRST */}
         <div>
           <label className="block text-sm font-semibold text-zinc-300 mb-2">
-            License Plate (optional, never published)
+            Sucky Driver&apos;s License Plate (optional, never published)
           </label>
           <input
             type="text"
@@ -263,7 +263,7 @@ export default function ReportPage() {
         {/* 2. WHAT HAPPENED — "Driving slow in the left lane" is first */}
         <div>
           <label className="block text-sm font-semibold text-zinc-300 mb-2">
-            What happened? *
+            Why do they suck? *
           </label>
           <select
             value={form.category}
@@ -282,7 +282,7 @@ export default function ReportPage() {
         {/* 3. DESCRIPTION */}
         <div>
           <label className="block text-sm font-semibold text-zinc-300 mb-2">
-            Tell us what happened *
+            Tell us why they suck *
           </label>
           <textarea
             value={form.description}
@@ -290,7 +290,7 @@ export default function ReportPage() {
               setForm({ ...form, description: e.target.value })
             }
             rows={4}
-            placeholder="A white SUV cut across three lanes without signaling, nearly clipped my bumper, then had the audacity to honk at ME..."
+            placeholder="This absolute menace in a white SUV cut across three lanes without signaling, nearly clipped my bumper, then had the audacity to honk at ME..."
             className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-red-500 transition-colors resize-none"
           />
         </div>
@@ -302,7 +302,7 @@ export default function ReportPage() {
             Upload Photo or Video
           </label>
           <p className="text-xs text-zinc-500 mb-3">
-            Got the receipts? Photos and videos make the best content. Faces and plates are blurred before any public use.
+            Got the receipts? Photos and videos of sucky drivers make the best content. Faces and plates are blurred before any public use.
           </p>
 
           {!mediaPreview ? (
