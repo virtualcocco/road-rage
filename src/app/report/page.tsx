@@ -260,6 +260,9 @@ export default function ReportPage() {
                 placeholder="ABC 1234"
                 className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-red-500 transition-colors text-lg tracking-wider font-mono"
               />
+              <p className="text-xs text-zinc-600 mt-1">
+                Never displayed publicly.
+              </p>
             </div>
             <div>
               <select
@@ -274,13 +277,13 @@ export default function ReportPage() {
                   </option>
                 ))}
               </select>
+              <p className="text-xs text-zinc-600 mt-1">
+                {form.plate_state === "OH"
+                  ? "Ohio? Yeah, that tracks. 😂"
+                  : "Let me guess... Ohio? 🤔"}
+              </p>
             </div>
           </div>
-          <p className="text-xs text-zinc-600 mt-1">
-            {form.plate_state === "OH"
-              ? "Ohio? Yeah, that tracks. 😂"
-              : "Let me guess... Ohio? 🤔"}
-          </p>
         </div>
 
         {/* 2. WHAT HAPPENED — "Driving slow in the left lane" is first */}
