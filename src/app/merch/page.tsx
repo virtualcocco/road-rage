@@ -81,7 +81,7 @@ const funnyAccessories = [
 ];
 
 // ── Bonfire store base URL (update slug once store is created) ──
-const BONFIRE_STORE = "https://www.bonfire.com/store/yousuckatdriving/";
+const BONFIRE_STORE = "https://www.bonfire.com/stay-out-of-the-fast-lane";
 
 export default function MerchPage() {
   const [email, setEmail] = useState("");
