@@ -1,40 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
-  <defs>
-    <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-
-  <!-- T-shirt shape -->
-  <path d="M100,60 L60,80 L20,120 L60,140 L80,110 L80,440 L320,440 L320,110 L340,140 L380,120 L340,80 L300,60 L260,90 C240,110 160,110 140,90 Z" fill="url(#shirtGrad)" stroke="#333" stroke-width="2"/>
-
-  <!-- Road sign - diamond shape -->
-  <g transform="translate(200,200)">
-    <!-- Diamond background -->
-    <rect x="-70" y="-70" width="140" height="140" rx="8" transform="rotate(45)" fill="#FFD700" stroke="#222" stroke-width="3"/>
-    <!-- Sign border -->
-    <rect x="-60" y="-60" width="120" height="120" rx="6" transform="rotate(45)" fill="none" stroke="#222" stroke-width="2"/>
-
-    <!-- Arrow pointing right -->
-    <g transform="translate(0,-10)">
-      <!-- Curved arrow body -->
-      <path d="M-35,15 Q-35,-20 0,-20 L25,-20" fill="none" stroke="#222" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-      <!-- Arrow head -->
-      <polygon points="20,-35 40,-20 20,-5" fill="#222"/>
-    </g>
-
-    <!-- SLOWER TRAFFIC text -->
-    <text x="0" y="38" font-family="Arial Black, sans-serif" font-size="11" font-weight="900" fill="#222" text-anchor="middle" letter-spacing="0.5">SLOWER TRAFFIC</text>
-    <text x="0" y="52" font-family="Arial Black, sans-serif" font-size="11" font-weight="900" fill="#222" text-anchor="middle" letter-spacing="0.5">KEEP RIGHT</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 580" width="500" height="580">
 
   <!-- Top text -->
-  <text x="200" y="135" font-family="Arial Black, Impact, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">STAY OUT OF</text>
-  <text x="200" y="158" font-family="Arial Black, Impact, sans-serif" font-size="22" font-weight="900" fill="#FF4444" text-anchor="middle" letter-spacing="1">THE FAST LANE!</text>
+  <text x="250" y="50" font-family="Impact, Arial Black, sans-serif" font-size="42" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">STAY OUT OF</text>
+  <text x="250" y="98" font-family="Impact, Arial Black, sans-serif" font-size="42" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">THE FAST LANE!</text>
 
-  <!-- Bottom URL -->
-  <text x="200" y="340" font-family="Arial Black, Impact, sans-serif" font-size="14" font-weight="900" fill="#FF4444" text-anchor="middle" letter-spacing="1.5">YOUSUCK</text>
-  <text x="200" y="358" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#AAAAAA" text-anchor="middle" letter-spacing="1">at</text>
-  <text x="200" y="376" font-family="Arial Black, Impact, sans-serif" font-size="14" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1.5">DRIVING.net</text>
+  <!-- Website URL -->
+  <text x="250" y="126" font-family="Impact, Arial Black, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="4" opacity="0.6">YOUSUCKATDRIVING.NET</text>
+
+  <!-- Actual R4-3 road sign: white rectangle, black border, text only -->
+  <g transform="translate(250, 365)">
+    <!-- White sign background -->
+    <rect x="-105" y="-125" width="210" height="250" rx="4" fill="#FFFFFF"/>
+    <!-- Black inner border -->
+    <rect x="-95" y="-115" width="190" height="230" rx="3" fill="none" stroke="#000000" stroke-width="2.5"/>
+
+    <!-- SLOWER TRAFFIC KEEP RIGHT -->
+    <text x="0" y="-52" font-family="Arial Black, sans-serif" font-size="28" font-weight="900" fill="#000000" text-anchor="middle">SLOWER</text>
+    <text x="0" y="-17" font-family="Arial Black, sans-serif" font-size="28" font-weight="900" fill="#000000" text-anchor="middle">TRAFFIC</text>
+    <text x="0" y="18" font-family="Arial Black, sans-serif" font-size="28" font-weight="900" fill="#000000" text-anchor="middle">KEEP</text>
+    <text x="0" y="53" font-family="Arial Black, sans-serif" font-size="28" font-weight="900" fill="#000000" text-anchor="middle">RIGHT</text>
+  </g>
+
 </svg>
