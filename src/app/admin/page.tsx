@@ -23,6 +23,7 @@ import {
   Car,
   Lock,
   Loader2,
+  ExternalLink,
 } from "lucide-react";
 
 const STORAGE_BASE =
@@ -52,16 +53,8 @@ function MediaPreview({
     return (
       <div className="w-20 h-20 rounded-xl overflow-hidden bg-zinc-800 flex items-center justify-center flex-shrink-0 border border-zinc-700">
         {video ? (
-          <div className="relative w-full h-full">
-            <video
-              src={fullUrl}
-              className="w-full h-full object-cover"
-              muted
-              preload="metadata"
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-              <Play className="w-6 h-6 text-white" fill="white" />
-            </div>
+          <div className="relative w-full h-full bg-zinc-900 flex items-center justify-center">
+            <Play className="w-6 h-6 text-white" fill="white" />
           </div>
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
@@ -78,19 +71,63 @@ function MediaPreview({
   return (
     <div className="mt-4 rounded-xl overflow-hidden bg-zinc-800 border border-zinc-700">
       {video ? (
-        <video
-          src={fullUrl}
-          controls
-          className="w-full max-h-[500px]"
-          preload="metadata"
-        />
+        <div>
+          <video
+            src={fullUrl}
+            controls
+            playsInline
+            crossOrigin="anonymous"
+            className="w-full max-h-[500px]"
+            preload="auto"
+          />
+          <div className="flex gap-2 p-3 bg-zinc-900 border-t border-zinc-700">
+            <a
+              href={fullUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 text-xs transition-colors"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Open in new tab
+            </a>
+            <a
+              href={fullUrl}
+              download={mediaUrl}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 text-xs transition-colors"
+            >
+              <Download className="w-3 h-3" />
+              Save video
+            </a>
+          </div>
+        </div>
       ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={fullUrl}
-          alt="Report media"
-          className="w-full max-h-[500px] object-contain"
-        />
+        <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={fullUrl}
+            alt="Report media"
+            className="w-full max-h-[500px] object-contain"
+          />
+          <div className="flex gap-2 p-3 bg-zinc-900 border-t border-zinc-700">
+            <a
+              href={fullUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 text-xs transition-colors"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Open full size
+            </a>
+            <a
+              href={fullUrl}
+              download={mediaUrl}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 text-xs transition-colors"
+            >
+              <Download className="w-3 h-3" />
+              Save image
+            </a>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -161,13 +198,22 @@ function ReportCard({
   const fullMediaUrl = hasMedia ? `${STORAGE_BASE}/${mediaUrl}` : "";
   const video = hasMedia && isVideo(mediaUrl);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!fullMediaUrl) return;
-    const a = document.createElement("a");
-    a.href = fullMediaUrl;
-    a.download = mediaUrl;
-    a.target = "_blank";
-    a.click();
+    try {
+      const res = await fetch(fullMediaUrl);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = mediaUrl.split("/").pop() || "media";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(fullMediaUrl, "_blank");
+    }
   };
 
   return (

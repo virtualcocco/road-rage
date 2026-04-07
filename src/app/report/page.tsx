@@ -337,8 +337,11 @@ export default function ReportPage() {
             <Camera className="w-4 h-4 inline mr-1 -mt-0.5" />
             Upload Photo or Video
           </label>
-          <p className="text-xs text-zinc-500 mb-3">
-            Got the receipts? Photos and videos of sucky drivers make the best content. Faces and plates are blurred before any public use.
+          <p className="text-xs text-zinc-500 mb-1">
+            Got the receipts? Let&apos;s make these bad drivers famous.
+          </p>
+          <p className="text-xs text-zinc-600 mb-3">
+            By uploading, you give us permission to post, share, and roast this content on our site and socials.
           </p>
 
           {!mediaPreview ? (

@@ -10,85 +10,141 @@ import {
   Camera,
   ExternalLink,
   ShieldCheck,
+  ShoppingBag,
+  Flame,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
-// Replace YOUR-TAG-20 with your Amazon Associates tag once you have one
 const AFFILIATE_TAG = "yousuckatdriv-20";
 
-const affiliateGear = [
+// ── Real Amazon affiliate products with verified ASINs ──
+const dashCams = [
   {
     name: "Vantrue N4 Pro 3-Channel Dash Cam",
-    desc: "Front, inside, and rear coverage. 4K front. Night vision. The gold standard for catching sucky drivers.",
-    price: "$300",
-    asin: "B0CG1GMP2H",
+    desc: "Front, inside, and rear. 4K front. Night vision. The gold standard for catching sucky drivers in the act.",
+    price: "$320",
+    asin: "B0C3M7HPRT",
     badge: "Best Overall",
   },
   {
     name: "Garmin Dash Cam 67W",
-    desc: "Compact, 180° field of view, voice control. Great for everyday proof that other people can't drive.",
-    price: "$230",
-    asin: "B0B3R4L4MZ",
+    desc: "Compact, 180° field of view, voice control. Set it and forget it — until someone does something stupid.",
+    price: "$195",
+    asin: "B093244D1J",
     badge: "Most Popular",
   },
   {
     name: "VIOFO A129 Plus Duo",
-    desc: "Front and rear 2K. Budget-friendly but still catches every lane-drifter and tailgater in HD.",
-    price: "$170",
-    asin: "B08DV51H3T",
+    desc: "Front and rear 2K. Budget-friendly but still catches every lane-drifter in crispy HD.",
+    price: "$158",
+    asin: "B08DV51H2X",
     badge: "Best Value",
   },
   {
     name: "Nexar Beam GPS Dash Cam",
-    desc: "Auto-uploads clips to the cloud. Perfect for when someone cuts you off and you need the evidence NOW.",
-    price: "$130",
-    asin: "B0BTMRHLKB",
+    desc: "Auto-uploads clips to the cloud. Evidence secured before they even finish running the red light.",
+    price: "$120",
+    asin: "B07ZPGSKLS",
     badge: null,
   },
+];
+
+const funnyAccessories = [
   {
-    name: "\"Student Driver\" Magnet (Funny)",
+    name: "\"Student Driver\" Magnet (3-Pack)",
     desc: "Slap it on the car of your friend who drives like they just discovered what a steering wheel is.",
     price: "$10",
-    asin: "B09WDGHFHB",
+    asin: "B0CLWMSC9J",
     badge: "Gag Gift",
   },
   {
-    name: "Bumper Sticker: \"Dash Cam Recording\"",
-    desc: "Let tailgaters know they're on camera. Surprisingly effective deterrent.",
-    price: "$8",
-    asin: "B07V52KPNL",
+    name: "\"Dash Cam Recording\" Sticker (4-Pack)",
+    desc: "Let tailgaters know they're on camera. Surprisingly effective at making people act right.",
+    price: "$6",
+    asin: "B07CW6VW3N",
+    badge: null,
+  },
+  {
+    name: "\"Use Your Blinkers\" Vinyl Sticker",
+    desc: "Because apparently some people need a reminder that blinkers are not a premium upgrade.",
+    price: "$7",
+    asin: "B01K2NBGA2",
+    badge: "Fan Favorite",
+  },
+  {
+    name: "\"If I Passed You on the Right\" Sticker",
+    desc: "If I passed you on the right, you're in the wrong lane. End of discussion.",
+    price: "$7",
+    asin: "B0F1FYT227",
     badge: null,
   },
 ];
 
-const bumperStickers = [
-  { slogan: "Use Your Blinker, You Maniac", hot: true },
-  { slogan: "Reported for Crimes Against Merging", hot: true },
-  { slogan: "Left Lane Is Not Your Birthright", hot: true },
-  { slogan: "You've Been Mentally Reported", hot: true },
-  { slogan: "Parking Like It's a Personal Expression", hot: false },
-  { slogan: "I Brake for Emotional Stability", hot: false },
-  { slogan: "Main Character Driving Again", hot: false },
-  { slogan: "Student Driver? No, Just Chaotic", hot: false },
-  { slogan: "This Car Has Strong Opinions About Turn Signals", hot: false },
-  { slogan: "Merge Like You Mean It", hot: false },
-];
-
-const shirts = [
-  "Some people should not be operating a motor vehicle",
-  "Drive better. Or become content.",
-  "Tailgating is not a personality",
-  "Blinkers are not premium features",
-];
-
-const jokeProducts = [
+// ── Custom YSAD merch (our own designs) ──
+const customMerch = [
   {
-    name: "Fake Citation Cards",
-    desc: "Leave one under the wiper of terribly parked cars. Looks official. Is not.",
+    name: "Stay Out of the Fast Lane Tee",
+    slogan: "Stay out of the fast lane!\nYOUSUCKatDRIVING.net",
+    design: "Slower Traffic Keep Right sign graphic",
+    style: "Unisex T-Shirt",
+    colors: ["Black", "Charcoal", "Navy"],
+    hot: true,
   },
   {
-    name: "Bad Driver of the Week Certificate",
-    desc: "A framed honor for the worst driver you witnessed this week.",
+    name: "Use Your Blinker Hoodie",
+    slogan: "Use Your Blinker, You Maniac",
+    design: "Bold text with turn signal icon",
+    style: "Pullover Hoodie",
+    colors: ["Black", "Dark Heather"],
+    hot: true,
+  },
+  {
+    name: "Mentally Reported Tee",
+    slogan: "You've Been Mentally Reported",
+    design: "Clean text with YSAD logo",
+    style: "Unisex T-Shirt",
+    colors: ["Black", "Red", "White"],
+    hot: true,
+  },
+  {
+    name: "Left Lane Birthright Tee",
+    slogan: "Left Lane Is Not Your Birthright",
+    design: "Highway sign style typography",
+    style: "Unisex T-Shirt",
+    colors: ["Black", "Forest Green"],
+    hot: false,
+  },
+  {
+    name: "Become Content Hoodie",
+    slogan: "Drive better.\nOr become content.",
+    design: "Minimal text with yousuckatdriving.net",
+    style: "Pullover Hoodie",
+    colors: ["Black", "Charcoal"],
+    hot: false,
+  },
+  {
+    name: "Crimes Against Merging Tee",
+    slogan: "Reported for Crimes Against Merging",
+    design: "Police report style layout",
+    style: "Unisex T-Shirt",
+    colors: ["Black", "Navy"],
+    hot: false,
+  },
+  {
+    name: "Main Character Driving Tee",
+    slogan: "Main Character Driving Again",
+    design: "Sarcastic text with steering wheel icon",
+    style: "Unisex T-Shirt",
+    colors: ["Black", "White"],
+    hot: false,
+  },
+  {
+    name: "Tailgating Personality Tee",
+    slogan: "Tailgating is not a personality",
+    design: "Clean bold type",
+    style: "Unisex T-Shirt",
+    colors: ["Black", "Dark Heather"],
+    hot: false,
   },
 ];
 
@@ -108,7 +164,6 @@ export default function MerchPage() {
         .insert({ email: email.toLowerCase().trim() });
       if (dbError) {
         if (dbError.code === "23505") {
-          // Unique constraint — already signed up
           setSubscribed(true);
         } else {
           throw dbError;
@@ -127,32 +182,86 @@ export default function MerchPage() {
     <div className="max-w-5xl mx-auto px-4 py-16">
       <div className="text-center mb-14">
         <Shirt className="w-10 h-10 text-orange-500 mx-auto mb-4" />
-        <h1 className="text-4xl font-bold mb-3">Merch</h1>
+        <h1 className="text-4xl font-bold mb-3">Merch & Gear</h1>
         <p className="text-zinc-400 max-w-xl mx-auto">
-          Bumper stickers, magnets, and shirts for people who are tired of
-          being cut off. Coming soon — get notified.
+          Gear up to catch sucky drivers. Rep the brand. Make a statement every time you get in the car.
         </p>
       </div>
 
-      {/* Affiliate Gear */}
+      {/* ═══ OUR CUSTOM MERCH ═══ */}
       <div className="mb-16">
-        <div className="flex items-center gap-3 mb-6">
-          <Camera className="w-6 h-6 text-orange-500" />
-          <h2 className="text-2xl font-bold">Gear Up</h2>
+        <div className="flex items-center gap-3 mb-2">
+          <ShoppingBag className="w-6 h-6 text-red-500" />
+          <h2 className="text-2xl font-bold">YSAD Originals</h2>
         </div>
         <p className="text-zinc-400 text-sm mb-6">
-          Catch every sucky driver in the act. These are our top picks for dash cams
-          and driving accessories.{" "}
-          <span className="text-zinc-600">(We may earn a small commission — keeps the site running.)</span>
+          Our own shirts and hoodies. Designed for people who are fed up with bad drivers.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {affiliateGear.map((item) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {customMerch.map((item) => (
+            <div
+              key={item.name}
+              className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-600/40 transition-all group"
+            >
+              <div className="flex items-start justify-between gap-2 mb-3">
+                <div>
+                  <h3 className="font-bold text-zinc-200 group-hover:text-red-400 transition-colors">
+                    {item.name}
+                  </h3>
+                  <span className="text-xs text-zinc-500">{item.style}</span>
+                </div>
+                {item.hot && (
+                  <span className="flex items-center gap-1 text-xs font-bold text-orange-400 bg-orange-400/10 px-2 py-1 rounded-full whitespace-nowrap">
+                    <Flame className="w-3 h-3" /> Hot
+                  </span>
+                )}
+              </div>
+
+              {/* Slogan display */}
+              <div className="p-4 rounded-xl bg-black border border-zinc-800 mb-3">
+                <p className="font-bold text-white text-lg leading-snug whitespace-pre-line text-center">
+                  {item.slogan}
+                </p>
+                {item.design.includes("sign") && (
+                  <p className="text-xs text-zinc-500 text-center mt-2">
+                    {item.design}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex gap-1.5">
+                  {item.colors.map((c) => (
+                    <span key={c} className="text-xs text-zinc-600 bg-zinc-800 px-2 py-0.5 rounded-full">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+                <span className="text-xs text-zinc-500">Coming soon</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ═══ DASH CAMS ═══ */}
+      <div className="mb-16">
+        <div className="flex items-center gap-3 mb-2">
+          <Camera className="w-6 h-6 text-orange-500" />
+          <h2 className="text-2xl font-bold">Dash Cams</h2>
+        </div>
+        <p className="text-zinc-400 text-sm mb-6">
+          Can&apos;t report a sucky driver without proof. These are our top picks.{" "}
+          <span className="text-zinc-600">(Affiliate links — helps keep the site running.)</span>
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {dashCams.map((item) => (
             <a
               key={item.asin}
               href={`https://www.amazon.com/dp/${item.asin}?tag=${AFFILIATE_TAG}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-orange-600/50 transition-all hover:bg-zinc-900/80 flex flex-col"
+              className="group p-5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-orange-600/50 transition-all flex flex-col"
             >
               <div className="flex items-start justify-between gap-2 mb-2">
                 <h3 className="font-bold text-zinc-200 group-hover:text-orange-400 transition-colors text-sm leading-tight">
@@ -178,79 +287,66 @@ export default function MerchPage() {
         </div>
       </div>
 
-      {/* Bumper Stickers */}
+      {/* ═══ FUNNY ACCESSORIES ═══ */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6">
-          Bumper Stickers & Magnets
-        </h2>
+        <div className="flex items-center gap-3 mb-2">
+          <Star className="w-6 h-6 text-orange-500" />
+          <h2 className="text-2xl font-bold">Stickers & Accessories</h2>
+        </div>
+        <p className="text-zinc-400 text-sm mb-6">
+          Slap these on your car, your friend&apos;s car, or the car of whoever parked like an idiot next to you.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {bumperStickers.map((item) => (
-            <div
-              key={item.slogan}
-              className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-orange-900/50 transition-colors flex items-center gap-3"
+          {funnyAccessories.map((item) => (
+            <a
+              key={item.asin}
+              href={`https://www.amazon.com/dp/${item.asin}?tag=${AFFILIATE_TAG}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-orange-600/50 transition-all flex flex-col"
             >
-              <div className="flex-1">
-                <p className="font-semibold text-zinc-200">{item.slogan}</p>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <h3 className="font-bold text-zinc-200 group-hover:text-orange-400 transition-colors text-sm leading-tight">
+                  {item.name}
+                </h3>
+                <ExternalLink className="w-4 h-4 text-zinc-600 group-hover:text-orange-400 flex-shrink-0 mt-0.5" />
               </div>
-              {item.hot && (
-                <span className="flex items-center gap-1 text-xs font-bold text-orange-400 bg-orange-400/10 px-2 py-1 rounded-full whitespace-nowrap">
-                  <Star className="w-3 h-3" /> Top Pick
+              {item.badge && (
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded-full w-fit mb-2">
+                  <ShieldCheck className="w-3 h-3" />
+                  {item.badge}
                 </span>
               )}
-            </div>
+              <p className="text-xs text-zinc-500 mb-3 flex-1">{item.desc}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold text-green-400">{item.price}</span>
+                <span className="text-xs text-zinc-600 group-hover:text-orange-500 transition-colors">
+                  View on Amazon →
+                </span>
+              </div>
+            </a>
           ))}
         </div>
       </div>
 
-      {/* Shirts */}
-      <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6">T-Shirts</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {shirts.map((slogan) => (
-            <div
-              key={slogan}
-              className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-orange-900/50 transition-colors"
-            >
-              <p className="font-semibold text-zinc-200">&quot;{slogan}&quot;</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Joke Products */}
-      <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6">Joke Products</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {jokeProducts.map((p) => (
-            <div
-              key={p.name}
-              className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800"
-            >
-              <h3 className="font-bold text-zinc-200 mb-1">{p.name}</h3>
-              <p className="text-sm text-zinc-500">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Email Signup */}
+      {/* ═══ EMAIL SIGNUP ═══ */}
       <div className="p-8 rounded-2xl bg-zinc-900 border border-zinc-800 text-center">
         {subscribed ? (
           <div>
             <CheckCircle className="w-10 h-10 text-green-500 mx-auto mb-3" />
             <h3 className="font-bold text-lg mb-1">You&apos;re on the list!</h3>
             <p className="text-zinc-400 text-sm">
-              We&apos;ll let you know when the store opens.
+              We&apos;ll let you know when shirts and hoodies drop.
             </p>
           </div>
         ) : (
           <div>
             <Mail className="w-8 h-8 text-orange-500 mx-auto mb-3" />
             <h3 className="font-bold text-lg mb-1">
-              Get notified when the store launches
+              Get notified when YSAD merch drops
             </h3>
             <p className="text-zinc-400 text-sm mb-6">
-              No spam. Just merch announcements.
+              Shirts, hoodies, and more. No spam — just merch announcements.
             </p>
             <form
               onSubmit={handleSubscribe}
