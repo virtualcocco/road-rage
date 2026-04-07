@@ -7,7 +7,6 @@ import { Menu, X, AlertTriangle } from "lucide-react";
 const links = [
   { href: "/report", label: "Report a Driver" },
   { href: "/archetypes", label: "Driver Types" },
-  { href: "/trends", label: "Trends" },
   { href: "/merch", label: "Merch" },
 ];
 

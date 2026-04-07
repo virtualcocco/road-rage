@@ -80,73 +80,8 @@ const funnyAccessories = [
   },
 ];
 
-// ── Custom YSAD merch (our own designs) ──
-const customMerch = [
-  {
-    name: "Stay Out of the Fast Lane Tee",
-    slogan: "Stay out of the fast lane!\nYOUSUCKatDRIVING.net",
-    design: "Slower Traffic Keep Right sign graphic",
-    style: "Unisex T-Shirt",
-    colors: ["Black", "Charcoal", "Navy"],
-    hot: true,
-  },
-  {
-    name: "Use Your Blinker Hoodie",
-    slogan: "Use Your Blinker, You Maniac",
-    design: "Bold text with turn signal icon",
-    style: "Pullover Hoodie",
-    colors: ["Black", "Dark Heather"],
-    hot: true,
-  },
-  {
-    name: "Mentally Reported Tee",
-    slogan: "You've Been Mentally Reported",
-    design: "Clean text with YSAD logo",
-    style: "Unisex T-Shirt",
-    colors: ["Black", "Red", "White"],
-    hot: true,
-  },
-  {
-    name: "Left Lane Birthright Tee",
-    slogan: "Left Lane Is Not Your Birthright",
-    design: "Highway sign style typography",
-    style: "Unisex T-Shirt",
-    colors: ["Black", "Forest Green"],
-    hot: false,
-  },
-  {
-    name: "Become Content Hoodie",
-    slogan: "Drive better.\nOr become content.",
-    design: "Minimal text with yousuckatdriving.net",
-    style: "Pullover Hoodie",
-    colors: ["Black", "Charcoal"],
-    hot: false,
-  },
-  {
-    name: "Crimes Against Merging Tee",
-    slogan: "Reported for Crimes Against Merging",
-    design: "Police report style layout",
-    style: "Unisex T-Shirt",
-    colors: ["Black", "Navy"],
-    hot: false,
-  },
-  {
-    name: "Main Character Driving Tee",
-    slogan: "Main Character Driving Again",
-    design: "Sarcastic text with steering wheel icon",
-    style: "Unisex T-Shirt",
-    colors: ["Black", "White"],
-    hot: false,
-  },
-  {
-    name: "Tailgating Personality Tee",
-    slogan: "Tailgating is not a personality",
-    design: "Clean bold type",
-    style: "Unisex T-Shirt",
-    colors: ["Black", "Dark Heather"],
-    hot: false,
-  },
-];
+// ── Bonfire store base URL (update slug once store is created) ──
+const BONFIRE_STORE = "https://www.bonfire.com/store/yousuckatdriving/";
 
 export default function MerchPage() {
   const [email, setEmail] = useState("");
@@ -195,52 +130,55 @@ export default function MerchPage() {
           <h2 className="text-2xl font-bold">YSAD Originals</h2>
         </div>
         <p className="text-zinc-400 text-sm mb-6">
-          Our own shirts and hoodies. Designed for people who are fed up with bad drivers.
+          Our own shirts and hoodies. Designed for people who are fed up with bad drivers. More designs coming soon.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {customMerch.map((item) => (
-            <div
-              key={item.name}
-              className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-600/40 transition-all group"
-            >
-              <div className="flex items-start justify-between gap-2 mb-3">
-                <div>
-                  <h3 className="font-bold text-zinc-200 group-hover:text-red-400 transition-colors">
-                    {item.name}
-                  </h3>
-                  <span className="text-xs text-zinc-500">{item.style}</span>
-                </div>
-                {item.hot && (
-                  <span className="flex items-center gap-1 text-xs font-bold text-orange-400 bg-orange-400/10 px-2 py-1 rounded-full whitespace-nowrap">
-                    <Flame className="w-3 h-3" /> Hot
-                  </span>
-                )}
-              </div>
 
-              {/* Slogan display */}
-              <div className="p-4 rounded-xl bg-black border border-zinc-800 mb-3">
-                <p className="font-bold text-white text-lg leading-snug whitespace-pre-line text-center">
-                  {item.slogan}
-                </p>
-                {item.design.includes("sign") && (
-                  <p className="text-xs text-zinc-500 text-center mt-2">
-                    {item.design}
-                  </p>
-                )}
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex gap-1.5">
-                  {item.colors.map((c) => (
-                    <span key={c} className="text-xs text-zinc-600 bg-zinc-800 px-2 py-0.5 rounded-full">
-                      {c}
-                    </span>
-                  ))}
-                </div>
-                <span className="text-xs text-zinc-500">Coming soon</span>
-              </div>
+        {/* Featured product: Stay Out of the Fast Lane */}
+        <div className="rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-600/40 transition-all overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+            {/* Design image */}
+            <div className="bg-black flex items-center justify-center p-8 md:p-12">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/stay-out-fast-lane.svg"
+                alt="Stay Out of the Fast Lane tee design — Slower Traffic Keep Right sign with yousuckatdriving.net"
+                className="w-full max-w-[300px]"
+              />
             </div>
-          ))}
+
+            {/* Product info */}
+            <div className="p-6 md:p-8 flex flex-col justify-center">
+              <span className="flex items-center gap-1 text-xs font-bold text-orange-400 bg-orange-400/10 px-2 py-1 rounded-full w-fit mb-3">
+                <Flame className="w-3 h-3" /> First Drop
+              </span>
+              <h3 className="font-bold text-2xl text-zinc-100 mb-2">
+                Stay Out of the Fast Lane Tee
+              </h3>
+              <p className="text-zinc-400 text-sm mb-4">
+                Featuring the classic &ldquo;Slower Traffic Keep Right&rdquo; sign.
+                Because some people need a reminder.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Unisex T-Shirt</span>
+                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Black</span>
+                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Charcoal</span>
+                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Navy</span>
+              </div>
+              <a
+                href={BONFIRE_STORE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold transition-all hover:scale-105 w-fit"
+              >
+                <ShoppingBag className="w-4 h-4" />
+                Buy on Bonfire
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              <p className="text-xs text-zinc-600 mt-2">
+                Printed &amp; shipped by Bonfire. Made to order.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

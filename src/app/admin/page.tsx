@@ -48,6 +48,7 @@ function MediaPreview({
 }) {
   const fullUrl = `${STORAGE_BASE}/${mediaUrl}`;
   const video = isVideo(mediaUrl);
+  const [videoError, setVideoError] = useState(false);
 
   if (!expanded) {
     return (
@@ -72,14 +73,37 @@ function MediaPreview({
     <div className="mt-4 rounded-xl overflow-hidden bg-zinc-800 border border-zinc-700">
       {video ? (
         <div>
-          <video
-            src={fullUrl}
-            controls
-            playsInline
-            crossOrigin="anonymous"
-            className="w-full max-h-[500px]"
-            preload="auto"
-          />
+          {videoError ? (
+            <div className="w-full bg-zinc-900 p-8 text-center">
+              <Video className="w-10 h-10 text-zinc-600 mx-auto mb-3" />
+              <p className="text-zinc-400 text-sm mb-3">Video can&apos;t play inline — open it directly instead.</p>
+              <a
+                href={fullUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-sm font-semibold transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open Video
+              </a>
+            </div>
+          ) : (
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full max-h-[500px]"
+              onError={() => setVideoError(true)}
+            >
+              <source src={fullUrl} type={
+                mediaUrl.endsWith(".mp4") ? "video/mp4" :
+                mediaUrl.endsWith(".webm") ? "video/webm" :
+                mediaUrl.endsWith(".mov") ? "video/quicktime" :
+                "video/mp4"
+              } />
+              Your browser does not support the video tag.
+            </video>
+          )}
           <div className="flex gap-2 p-3 bg-zinc-900 border-t border-zinc-700">
             <a
               href={fullUrl}
@@ -92,7 +116,7 @@ function MediaPreview({
             </a>
             <a
               href={fullUrl}
-              download={mediaUrl}
+              download={mediaUrl.split("/").pop() || "video"}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 text-xs transition-colors"
             >
               <Download className="w-3 h-3" />
@@ -120,7 +144,7 @@ function MediaPreview({
             </a>
             <a
               href={fullUrl}
-              download={mediaUrl}
+              download={mediaUrl.split("/").pop() || "image"}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 text-xs transition-colors"
             >
               <Download className="w-3 h-3" />

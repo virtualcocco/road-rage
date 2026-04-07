@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   AlertTriangle,
-  BarChart3,
+
   ShieldAlert,
   Shirt,
   ArrowRight,

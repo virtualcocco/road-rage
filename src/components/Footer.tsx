@@ -21,7 +21,6 @@ export function Footer() {
             <div className="space-y-1">
               <Link href="/report" className="block text-sm text-zinc-500 hover:text-white transition-colors">Report a Driver</Link>
               <Link href="/archetypes" className="block text-sm text-zinc-500 hover:text-white transition-colors">Driver Types</Link>
-              <Link href="/trends" className="block text-sm text-zinc-500 hover:text-white transition-colors">Trends</Link>
               <Link href="/merch" className="block text-sm text-zinc-500 hover:text-white transition-colors">Merch</Link>
             </div>
           </div>

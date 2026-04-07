@@ -2,6 +2,22 @@ import { AlertTriangle } from "lucide-react";
 
 const archetypes = [
   {
+    name: "The Left Lane Philosopher",
+    emoji: "🐢🛣️",
+    tagline: "The speed limit is a suggestion — a low one.",
+    desc: "Going 52 in the left lane. Deep in thought. Completely unaware of the fury behind them. Has never once checked a mirror.",
+    traits: ["Slow", "Serene", "Maddeningly unaware"],
+    habitat: "The left lane. Always the left lane. Only the left lane.",
+  },
+  {
+    name: "The Phone Zombie",
+    emoji: "📱🧟",
+    tagline: "Just one more scroll...",
+    desc: "Swerving gently into your lane because TikTok waits for no one. The light's been green for 8 seconds but they haven't looked up yet.",
+    traits: ["Distracted", "Drifting", "Will honk at YOU when you pass them"],
+    habitat: "Red lights, slow traffic, anywhere a screen is more interesting than driving",
+  },
+  {
     name: "The Tailgater",
     emoji: "🚗💨",
     tagline: "Personal space? Never heard of it.",
@@ -18,14 +34,6 @@ const archetypes = [
     habitat: "Mall parking lots, grocery stores, anywhere with painted lines",
   },
   {
-    name: "The Left Lane Philosopher",
-    emoji: "🐢🛣️",
-    tagline: "The speed limit is a suggestion — a low one.",
-    desc: "Going 52 in the left lane. Deep in thought. Completely unaware of the fury behind them. Has never once checked a mirror.",
-    traits: ["Slow", "Serene", "Maddeningly unaware"],
-    habitat: "The left lane. Always the left lane. Only the left lane.",
-  },
-  {
     name: "The Blinker Denier",
     emoji: "🔇➡️",
     tagline: "Turn signals are a premium feature they didn't pay for.",
@@ -40,14 +48,6 @@ const archetypes = [
     desc: "Weaving through traffic like it's a Fast & Furious audition. Every trip is an action sequence. Other drivers are just extras.",
     traits: ["Dramatic", "Self-absorbed", "Dangerously confident"],
     habitat: "Interstate on-ramps, parking garages, school drop-off lanes",
-  },
-  {
-    name: "The Phone Zombie",
-    emoji: "📱🧟",
-    tagline: "Just one more scroll...",
-    desc: "Swerving gently into your lane because TikTok waits for no one. The light's been green for 8 seconds but they haven't looked up yet.",
-    traits: ["Distracted", "Drifting", "Will honk at YOU when you pass them"],
-    habitat: "Red lights, slow traffic, anywhere a screen is more interesting than driving",
   },
   {
     name: "The Honk Artist",
