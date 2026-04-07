@@ -47,6 +47,7 @@ export type Report = {
   state: string;
   time_of_day: string;
   plate_text: string | null; // internal only, never public
+  plate_state: string | null;
   media_url: string | null;
   status: "pending" | "approved" | "rejected";
   archetype_tag: string | null;
