@@ -136,13 +136,13 @@ export default function MerchPage() {
         {/* Featured product: Stay Out of the Fast Lane */}
         <div className="rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-600/40 transition-all overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-            {/* Design image */}
-            <div className="bg-black flex items-center justify-center p-8 md:p-12">
+            {/* Product mockups */}
+            <div className="bg-zinc-950 flex items-center justify-center p-4 md:p-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/stay-out-fast-lane.svg"
-                alt="Stay Out of the Fast Lane tee design — Slower Traffic Keep Right sign with yousuckatdriving.net"
-                className="w-full max-w-[300px]"
+                src="/merch-styles.png"
+                alt="Stay Out of the Fast Lane merch — Premium Tee, Classic Tee, Hoodie, and Crewneck Sweatshirt"
+                className="w-full"
               />
             </div>
 
@@ -152,17 +152,17 @@ export default function MerchPage() {
                 <Flame className="w-3 h-3" /> First Drop
               </span>
               <h3 className="font-bold text-2xl text-zinc-100 mb-2">
-                Stay Out of the Fast Lane Tee
+                Stay Out of the Fast Lane!
               </h3>
               <p className="text-zinc-400 text-sm mb-4">
                 Featuring the classic &ldquo;Slower Traffic Keep Right&rdquo; sign.
-                Because some people need a reminder.
+                Because some people need a reminder. Available in 4 styles.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Unisex T-Shirt</span>
-                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Black</span>
-                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Charcoal</span>
-                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Navy</span>
+                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Premium Tee — $27.99</span>
+                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Classic Tee — $24.99</span>
+                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Hoodie — $41.99</span>
+                <span className="text-xs text-zinc-500 bg-zinc-800 px-2 py-1 rounded-full">Crewneck — $39.99</span>
               </div>
               <a
                 href={BONFIRE_STORE}
