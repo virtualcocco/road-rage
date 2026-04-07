@@ -26,6 +26,13 @@ export function Footer() {
             </div>
           </div>
           <div>
+            <p className="font-semibold text-zinc-300 mb-2">Follow Us</p>
+            <div className="space-y-1 mb-4">
+              <a href="https://www.tiktok.com/@yousuckatdrivingnet" target="_blank" rel="noopener noreferrer" className="block text-sm text-zinc-500 hover:text-red-400 transition-colors">TikTok</a>
+              <a href="https://www.instagram.com/usuckatdriving/" target="_blank" rel="noopener noreferrer" className="block text-sm text-zinc-500 hover:text-red-400 transition-colors">Instagram</a>
+              <a href="https://x.com/Usuckatdriving" target="_blank" rel="noopener noreferrer" className="block text-sm text-zinc-500 hover:text-red-400 transition-colors">X (Twitter)</a>
+              <a href="https://www.threads.com/@usuckatdriving" target="_blank" rel="noopener noreferrer" className="block text-sm text-zinc-500 hover:text-red-400 transition-colors">Threads</a>
+            </div>
             <p className="font-semibold text-zinc-300 mb-2">Legal</p>
             <p className="text-sm text-zinc-500">
               All reports are anonymous. We never publish identifying

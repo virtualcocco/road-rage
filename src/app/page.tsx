@@ -8,6 +8,7 @@ import {
   Car,
   Zap,
   Eye,
+  Camera,
 } from "lucide-react";
 
 const archetypePreview = [
@@ -40,6 +41,13 @@ const merchPreview = [
   "You've Been Mentally Reported",
 ];
 
+const SOCIALS = [
+  { label: "TikTok", href: "https://www.tiktok.com/@yousuckatdrivingnet" },
+  { label: "Instagram", href: "https://www.instagram.com/usuckatdriving/" },
+  { label: "X", href: "https://x.com/Usuckatdriving" },
+  { label: "Threads", href: "https://www.threads.com/@usuckatdriving" },
+];
+
 export default function HomePage() {
   return (
     <div>
@@ -48,13 +56,17 @@ export default function HomePage() {
         <div className="absolute inset-0 brand-gradient opacity-10" />
         <div className="relative max-w-4xl mx-auto px-4 py-24 md:py-36 text-center">
           <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6">
-            Some people should{" "}
-            <span className="brand-gradient-text">not</span> be operating a
-            motor vehicle.
+            You{" "}
+            <span className="brand-gradient-text">Suck</span>{" "}
+            At Driving.
+            <br />
+            <span className="text-2xl md:text-4xl text-zinc-400 font-bold mt-2 block">
+              And we&apos;re collecting the evidence.
+            </span>
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto">
-            Report absurd driving. Track anonymous bad-driving trends. Laugh,
-            vent, and maybe buy a bumper sticker.
+            Caught someone driving like they got their license from a cereal box?
+            Report them. Upload the video. Let the world know they suck.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
@@ -62,15 +74,30 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-lg transition-all hover:scale-105"
             >
               <ShieldAlert className="w-5 h-5" />
-              Report a Driver
+              Report a Sucky Driver
             </Link>
             <Link
-              href="/trends"
+              href="/merch"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white font-semibold text-lg transition-all"
             >
-              <BarChart3 className="w-5 h-5" />
-              See the Worst Trends
+              <Shirt className="w-5 h-5" />
+              Merch & Gear
             </Link>
+          </div>
+
+          {/* Social links under CTA */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            {SOCIALS.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-zinc-600 hover:text-red-400 transition-colors font-medium"
+              >
+                {s.label}
+              </a>
+            ))}
           </div>
         </div>
       </section>
@@ -78,25 +105,28 @@ export default function HomePage() {
       {/* HOW IT WORKS */}
       <section className="py-20 border-t border-zinc-800">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-14">
+          <h2 className="text-3xl font-bold text-center mb-4">
             How It Works
           </h2>
+          <p className="text-zinc-500 text-center mb-14 max-w-xl mx-auto">
+            Three easy steps to let the world know someone sucks at driving.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {[
               {
-                icon: Car,
-                title: "1. Report what happened",
-                desc: "Submit a bad driving moment: tailgating, lane weaving, parking crimes, no-blinker nonsense, and more.",
+                icon: Camera,
+                title: "1. Catch them sucking",
+                desc: "See someone driving like an absolute menace? Grab the dashcam footage, snap a photo, or just describe the chaos.",
               },
               {
-                icon: Eye,
-                title: "2. We track patterns",
-                desc: "Reports help build anonymous trend data around where and how people drive terribly.",
+                icon: Car,
+                title: "2. Report the sucky driver",
+                desc: "Fill out the report form. Tell us what happened, where, and why they suck. Upload your video evidence.",
               },
               {
                 icon: Zap,
-                title: "3. We turn chaos into content",
-                desc: "The wildest themes become driver archetypes, stats, jokes, and merch.",
+                title: "3. They become content",
+                desc: "The best (worst?) reports become social media posts, driver archetypes, and proof that some people shouldn't have licenses.",
               },
             ].map((step) => (
               <div
@@ -118,9 +148,9 @@ export default function HomePage() {
       <section className="py-20 border-t border-zinc-800 bg-zinc-900/30">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold mb-3">Driver Types</h2>
+            <h2 className="text-3xl font-bold mb-3">The Hall of Suck</h2>
             <p className="text-zinc-400">
-              Meet the worst people on the road. You probably know all of them.
+              Meet the worst people on the road. You definitely know all of them.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -152,10 +182,9 @@ export default function HomePage() {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-orange-600/10 mb-6">
             <Shirt className="w-7 h-7 text-orange-500" />
           </div>
-          <h2 className="text-3xl font-bold mb-3">Merch — Coming Soon</h2>
+          <h2 className="text-3xl font-bold mb-3">Merch & Dash Cams</h2>
           <p className="text-zinc-400 mb-10">
-            Bumper stickers, magnets, and shirts for people who are tired of
-            being cut off.
+            Bumper stickers for the passive-aggressive driver in you. Plus dash cams to catch everyone else sucking.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {merchPreview.map((slogan) => (
@@ -172,7 +201,7 @@ export default function HomePage() {
               href="/merch"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold transition-all hover:scale-105"
             >
-              Browse Merch Ideas
+              Browse Merch & Gear
             </Link>
           </div>
         </div>
@@ -183,10 +212,10 @@ export default function HomePage() {
         <div className="max-w-3xl mx-auto px-4 text-center">
           <AlertTriangle className="w-8 h-8 text-yellow-500 mx-auto mb-4" />
           <p className="text-zinc-400 text-sm leading-relaxed">
-            This is a humor and pattern-tracking project. It collects anonymous
-            driving stories, surfaces trends, and serves documentation. Not to
-            start a mob. Not to dox anybody. Just to turn everyday traffic
-            insanity into stories, patterns, and possibly a T-shirt.
+            This is a humor site for reporting sucky drivers. All reports are
+            anonymous. We never publish license plates, names, or personal info.
+            No doxxing. No mobs. Just vibes, videos, and the collective therapy
+            of knowing you&apos;re not the only one screaming in traffic.
           </p>
         </div>
       </section>

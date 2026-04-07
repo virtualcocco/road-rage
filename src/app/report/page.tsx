@@ -160,17 +160,27 @@ export default function ReportPage() {
       // Upload media file if present
       if (mediaFile) {
         const client = getSupabase();
-        if (client) {
-          const ext = mediaFile.name.split(".").pop() || "bin";
+        if (!client) {
+          console.error("Supabase client not initialized");
+        } else {
+          const ext = mediaFile.name.split(".").pop()?.toLowerCase() || "bin";
           const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
           const { data: uploadData, error: uploadError } = await client
             .storage
             .from("report-media")
-            .upload(fileName, mediaFile);
+            .upload(fileName, mediaFile, {
+              cacheControl: "3600",
+              upsert: false,
+              contentType: mediaFile.type,
+            });
 
           if (uploadError) {
-            console.warn("Media upload failed, submitting without media:", uploadError);
-          } else if (uploadData) {
+            console.error("Media upload failed:", uploadError.message);
+            setError("Photo/video upload failed: " + uploadError.message);
+            setSubmitting(false);
+            return;
+          }
+          if (uploadData) {
             media_url = fileName;
           }
         }
