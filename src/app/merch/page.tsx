@@ -1,8 +1,65 @@
 "use client";
 
 import { useState } from "react";
-import { Shirt, Star, Mail, CheckCircle, Loader2 } from "lucide-react";
+import {
+  Shirt,
+  Star,
+  Mail,
+  CheckCircle,
+  Loader2,
+  Camera,
+  ExternalLink,
+  ShieldCheck,
+} from "lucide-react";
 import { supabase } from "@/lib/supabase";
+
+// Replace YOUR-TAG-20 with your Amazon Associates tag once you have one
+const AFFILIATE_TAG = "yousuckatdriv-20";
+
+const affiliateGear = [
+  {
+    name: "Vantrue N4 Pro 3-Channel Dash Cam",
+    desc: "Front, inside, and rear coverage. 4K front. Night vision. The gold standard for catching sucky drivers.",
+    price: "$300",
+    asin: "B0CG1GMP2H",
+    badge: "Best Overall",
+  },
+  {
+    name: "Garmin Dash Cam 67W",
+    desc: "Compact, 180° field of view, voice control. Great for everyday proof that other people can't drive.",
+    price: "$230",
+    asin: "B0B3R4L4MZ",
+    badge: "Most Popular",
+  },
+  {
+    name: "VIOFO A129 Plus Duo",
+    desc: "Front and rear 2K. Budget-friendly but still catches every lane-drifter and tailgater in HD.",
+    price: "$170",
+    asin: "B08DV51H3T",
+    badge: "Best Value",
+  },
+  {
+    name: "Nexar Beam GPS Dash Cam",
+    desc: "Auto-uploads clips to the cloud. Perfect for when someone cuts you off and you need the evidence NOW.",
+    price: "$130",
+    asin: "B0BTMRHLKB",
+    badge: null,
+  },
+  {
+    name: "\"Student Driver\" Magnet (Funny)",
+    desc: "Slap it on the car of your friend who drives like they just discovered what a steering wheel is.",
+    price: "$10",
+    asin: "B09WDGHFHB",
+    badge: "Gag Gift",
+  },
+  {
+    name: "Bumper Sticker: \"Dash Cam Recording\"",
+    desc: "Let tailgaters know they're on camera. Surprisingly effective deterrent.",
+    price: "$8",
+    asin: "B07V52KPNL",
+    badge: null,
+  },
+];
 
 const bumperStickers = [
   { slogan: "Use Your Blinker, You Maniac", hot: true },
@@ -75,6 +132,50 @@ export default function MerchPage() {
           Bumper stickers, magnets, and shirts for people who are tired of
           being cut off. Coming soon — get notified.
         </p>
+      </div>
+
+      {/* Affiliate Gear */}
+      <div className="mb-16">
+        <div className="flex items-center gap-3 mb-6">
+          <Camera className="w-6 h-6 text-orange-500" />
+          <h2 className="text-2xl font-bold">Gear Up</h2>
+        </div>
+        <p className="text-zinc-400 text-sm mb-6">
+          Catch every sucky driver in the act. These are our top picks for dash cams
+          and driving accessories.{" "}
+          <span className="text-zinc-600">(We may earn a small commission — keeps the site running.)</span>
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {affiliateGear.map((item) => (
+            <a
+              key={item.asin}
+              href={`https://www.amazon.com/dp/${item.asin}?tag=${AFFILIATE_TAG}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-5 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-orange-600/50 transition-all hover:bg-zinc-900/80 flex flex-col"
+            >
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <h3 className="font-bold text-zinc-200 group-hover:text-orange-400 transition-colors text-sm leading-tight">
+                  {item.name}
+                </h3>
+                <ExternalLink className="w-4 h-4 text-zinc-600 group-hover:text-orange-400 flex-shrink-0 mt-0.5" />
+              </div>
+              {item.badge && (
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded-full w-fit mb-2">
+                  <ShieldCheck className="w-3 h-3" />
+                  {item.badge}
+                </span>
+              )}
+              <p className="text-xs text-zinc-500 mb-3 flex-1">{item.desc}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold text-green-400">{item.price}</span>
+                <span className="text-xs text-zinc-600 group-hover:text-orange-500 transition-colors">
+                  View on Amazon →
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* Bumper Stickers */}
