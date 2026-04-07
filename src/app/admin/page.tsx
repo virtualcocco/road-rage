@@ -21,6 +21,8 @@ import {
   Calendar,
   Tag,
   Car,
+  Lock,
+  Loader2,
 } from "lucide-react";
 
 const STORAGE_BASE =
@@ -307,7 +309,72 @@ function ReportCard({
   );
 }
 
-export default function AdminPage() {
+function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [checking, setChecking] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setChecking(true);
+    setError("");
+    try {
+      const res = await fetch("/api/admin-auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        sessionStorage.setItem("admin_authed", "1");
+        onUnlock();
+      } else {
+        setError("Wrong password. Try again.");
+      }
+    } catch {
+      setError("Something went wrong.");
+    } finally {
+      setChecking(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-sm p-8 rounded-2xl bg-zinc-900 border border-zinc-800"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <Lock className="w-6 h-6 text-red-500" />
+          <h1 className="text-xl font-bold">Admin Access</h1>
+        </div>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter password"
+          className="w-full px-4 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-red-500 mb-4"
+          autoFocus
+        />
+        {error && (
+          <p className="text-red-400 text-sm mb-4">{error}</p>
+        )}
+        <button
+          type="submit"
+          disabled={checking || !password}
+          className="w-full py-3 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold transition-colors disabled:opacity-50"
+        >
+          {checking ? (
+            <Loader2 className="w-5 h-5 animate-spin mx-auto" />
+          ) : (
+            "Unlock Dashboard"
+          )}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+function AdminDashboard() {
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<
@@ -466,4 +533,20 @@ export default function AdminPage() {
       )}
     </div>
   );
+}
+
+export default function AdminPage() {
+  const [authed, setAuthed] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("admin_authed") === "1") {
+      setAuthed(true);
+    }
+  }, []);
+
+  if (!authed) {
+    return <PasswordGate onUnlock={() => setAuthed(true)} />;
+  }
+
+  return <AdminDashboard />;
 }
