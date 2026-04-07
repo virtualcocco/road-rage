@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Shirt, Star, Mail, CheckCircle } from "lucide-react";
+import { Shirt, Star, Mail, CheckCircle, Loader2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const bumperStickers = [
   { slogan: "Use Your Blinker, You Maniac", hot: true },
@@ -37,11 +38,32 @@ const jokeProducts = [
 export default function MerchPage() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: hook up to email list (Mailchimp, etc.)
-    setSubscribed(true);
+    setError("");
+    setSubmitting(true);
+    try {
+      const { error: dbError } = await supabase
+        .from("email_waitlist")
+        .insert({ email: email.toLowerCase().trim() });
+      if (dbError) {
+        if (dbError.code === "23505") {
+          // Unique constraint — already signed up
+          setSubscribed(true);
+        } else {
+          throw dbError;
+        }
+      } else {
+        setSubscribed(true);
+      }
+    } catch {
+      setError("Something went wrong. Try again?");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -143,11 +165,19 @@ export default function MerchPage() {
               />
               <button
                 type="submit"
-                className="px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold transition-colors"
+                disabled={submitting}
+                className="px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-semibold transition-colors flex items-center justify-center gap-2"
               >
-                Notify Me
+                {submitting ? (
+                  <><Loader2 className="w-4 h-4 animate-spin" /> Signing up...</>
+                ) : (
+                  "Notify Me"
+                )}
               </button>
             </form>
+            {error && (
+              <p className="text-red-400 text-sm mt-3">{error}</p>
+            )}
           </div>
         )}
       </div>
