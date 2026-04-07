@@ -192,8 +192,9 @@ export default function ReportPage() {
         city: form.city,
         state: form.state,
         time_of_day: form.time_of_day,
-        plate_text: form.plate_text || null,
-        plate_state: form.plate_state || null,
+        plate_text: form.plate_text
+          ? `${form.plate_text}${form.plate_state ? ` (${form.plate_state})` : ""}`
+          : null,
         media_url,
         reported_at: timestamp || new Date().toISOString(),
         status: "pending",
